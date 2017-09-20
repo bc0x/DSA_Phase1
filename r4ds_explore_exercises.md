@@ -11,6 +11,15 @@
     - [3.7.1](#371)
     - [3.8.1](#381)
     - [3.9.1](#391)
+  - [Chapter 4: Workflow: basics](#chapter-4-workflow-basics)
+    - [4.4](#44)
+  - [Chapter 5: Data Transformation](#chapter-5-data-transformation)
+    - [5.2.4](#524)
+    - [5.3.1](#531)
+    - [5.4.1](#541)
+    - [5.5.2](#552)
+    - [5.6.7](#567)
+    - [5.7.1](#571)
 
 <!-- /TOC -->
 
@@ -43,9 +52,71 @@
 1. You should use it as a columns so the plots are not compact. Using it as a columns allows for more room on the y axis.
 
 ### 3.6.1
+1. Answers:
+    1. Line - geom_line()
+    1. Boxplot - geom_boxplot()
+    1. Histogram - geom_histogram()
+    1. Area - geom_area()
+1. Ummmm?
+1. It removes the key that describes the aeshetic mappings. I don't know why you would remove it.
+1. Displays confidence interval around smooth line. It is true by default.
+1. No, they are the same because the arguments are passed down from ggplot.
+1. Answers:
+    1. ```ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point() + geom_smooth(se = FALSE)```
+    1. ```ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_smooth(aes(group = drv), se = FALSE) + geom_point()```
+    1. ```ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + geom_point() + geom_smooth(se = FALSE)```
+    1. ```ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point(aes(color = drv)) + geom_smooth(se = FALSE)```
+    1. ```ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point(aes(color = drv)) + geom_smooth(aes(linetype = drv), se = FALSE)```
+    1. ```ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point(size = 4, colour = "white") + geom_point(aes(color = drv))```
 
 ### 3.7.1
 
+1. pointrange; ```ggplot(data = diamonds) + geom_pointrange(mapping = aes(x = cut, y = depth), stat = "summary", fun.ymin = min, fun.ymax = max, fun.y = median)```
+1. geom_col uses the identity stat, but geom_bar uses the count stat.
+1. TODO
+1. Answers:
+    1. y
+    1. ymin
+    1. ymax
+    1. se
+1. The proportion is calculated over the whole set of data, instead of each group of cut.
+
 ### 3.8.1
 
+1. Many of the points overlap, so we should use geom_jitter().
+1. The width and height
+1. Jitter adds randomness to represent stacked points where count will add weight/size to each point to represent the stacked points.
+1. The defauly position is dodge; ```ggplot(data = mpg, mapping = aes(x = class, y = hwy, color = drv)) + geom_boxplot()```
+
 ### 3.9.1
+
+1. ```ggplot(data = diamonds, mapping = aes(x = 1, fill = clarity)) + geom_bar() + coord_polar(theta = "y")```
+1. Labs allows you to modify axis, legend, and plot labels.
+1. coord_map projects a portion of the earth, which is approximately spherical, onto a flat 2D plane using any projection defined by the mapproj package. Map projections do not, in general, preserve straight lines, so this requires considerable computation. coord_quickmap is a quick approximation that does preserve straight lines. It works best for smaller areas closer to the equator.
+1. The mapping of cty vs hwy is linear and that hwy is usually higher than cty miles. coord_fixed makes sure that the a unit on the x and y axes are the same length. You can see this by changing ratio to 2. geom_abline adds reference lines (sometimes called rules) to a plot, either horizontal, vertical, or diagonal (specified by slope and intercept). These are useful for annotating plots.
+
+## Chapter 4: Workflow: basics
+
+### 4.4
+
+1. my_variable is not spelled correctly when printing to the screen.
+1. Answers
+    1. This is correct.
+    1. ```ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))```
+    1. ```filter(mpg, cyl = 8)```
+    1. ```filter(diamonds, carat > 3)```
+1. A list of keyboard shortcuts is displayed. Help > Keyboard Shortcuts Reference.
+
+## Chapter 5: Data Transformation
+
+### 5.2.4
+
+### 5.3.1
+
+### 5.4.1
+
+### 5.5.2
+
+### 5.6.7
+
+### 5.7.1
