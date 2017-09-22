@@ -20,6 +20,14 @@
     - [5.5.2](#552)
     - [5.6.7](#567)
     - [5.7.1](#571)
+  - [Chapter 6: Workflow: scripts](#chapter-6-workflow-scripts)
+    - [6.3](#63)
+  - [Chapter 7: Exploratory Data Analysis](#chapter-7-exploratory-data-analysis)
+    - [7.3.4](#734)
+    - [7.4.1](#741)
+    - [7.5.1.1](#7511)
+    - [7.5.2.1](#7521)
+    - [7.5.3.1](#7531)
 
 <!-- /TOC -->
 
@@ -111,12 +119,123 @@
 
 ### 5.2.4
 
+1. Answers:
+    1. ```filter(flights, arr_delay >= 120)```
+    1. ```filter(flights, dest == "IAH" | dest == "HOU")```
+    1. ```filter(flights, carrier == "UA" | carrier == "AA" | carrier == "DL")```
+    1. ```filter(flights, month %in% c(7, 8, 9))```
+    1. ```filter(flights, arr_delay >= 120, dep_delay <= 0)```
+    1. ```filter(flights, dep_delay >= 60, dep_delay - arr_delay > 30)```
+    1. ```filter(flights, dep_time >=0, dep_time <= 600)```
+1. ```filter(flights, month %in% c(7, 8, 9))``` goes to ```filter(flights, between(month, 7, 9))```
+1. 8,255; 
+1. Answers:
+    1. Anything to power of 0 is 1
+    1. Because it has an or with true
+    1. Becuase it has an and with false
+    1. Anything with operations is NA unless you raise it to power 0. With conditionals, the value associated with NA is looked at depending on the rest of the expression.
+
 ### 5.3.1
+
+1. ```arrage(flights, !is.na(VAR_NAME))```
+1. ```arrange(flights, desc(arr_delay))``` and ```arrange(flights, dep_delay)```
+1. ```arrange(flights, air_time)```
+1. ```arrange(flights, desc(distance))``` and ```arrange(flights, distance)```
 
 ### 5.4.1
 
+1. Answers:
+    1. ```select(flights, dep_time, dep_delay, arr_time, arr_delay)```
+    1. ```select(flights, starts_with("dep"), starts_with("arr"))```
+    1. ```select(flights, one_of(c("dep_time", "dep_delay", "arr_time", "arr_delay")))```
+1. It is ignored and only shown once.
+1. It matches the vars defined in the vector.
+1. It matcheds regarless of case by default. You can set ignore.case = FALSE.
+
 ### 5.5.2
+
+1. ```mutate(flights, sched_dep_time_min = (sched_dep_time %/% 100) * 60 + sched_dep_time %% 100, dep_time_min = (dep_time %/% 100) * 60 + dep_time %% 100)```
+1. They are not equal becuase the times have not be converted like above. We need to convert to minutes.
+1. dep_time should be equal to the delay plus scheduled departure time if the vars are converted.
+1. mutate(flights, delayed = min_rank(desc(arr_delay)))
+1. Answers: 
+    1. ```test <- mutate(flights, delayed = min_rank(desc(arr_delay)))``` then ```arrange(test, delayed)```
+    1. The ties.method is set to min so if something is equal they will have the same rank.
+1. cos(x), sin(x), tan(x), acos(x), asin(x), atan(x), atan2(y, x), cospi(x), sinpi(x), tanpi(x)
 
 ### 5.6.7
 
+1. Answers:
+    1. ```flights %>% group_by(flight) %>% summarise(early = sum(arr_delay <= -15, na.rm = TRUE) / n(), late = sum(arr_delay >= 15, na.rm = TRUE) / n()) %>% filter(early == .5, late == .5)```
+    1. ```flights %>% group_by(flight) %>% summarise(late = sum(arr_delay == 10, na.rm = TRUE) / n()) %>% filter(late == 1)```
+    1. ```flights %>% group_by(flight) %>% summarise(early = sum(arr_delay <= -30, na.rm = TRUE) / n(), late = sum(arr_delay >= 30, na.rm = TRUE) / n()) %>% filter(early == .5, late == .5)```
+    1. ```flights %>% group_by(flight) %>% summarise(ontime = sum(arr_delay == 0, na.rm = TRUE) / n(), late = sum(arr_delay >= 120, na.rm = TRUE) / n()) %>% filter(ontime == .99, late == .01)```
+    1. The type of delay is subjective so I'm not sure you could say one is more important than the other.
+1. Answers:
+    1. ```not_cancelled %>% group_by(dest) %>% summarise(n = n())```
+    1. ```not_cancelled %>% group_by(tailnum) %>% summarise(n = sum(distance, na.rm = TRUE))```
+1. ```cancelled <- flights %>% filter(is.na(dep_delay))```
+1. It looks like as the avg delay goes up there are more canceled flights that day.
+    1. ```flights %>% group_by(day) %>% filter(is.na(dep_delay)) %>% summarise(n = n())```
+    1. ```flights %>% group_by(day) %>% summarise(n = n(), cancelled = sum(is.na(dep_delay)) / n(), delay = mean(dep_delay, na.rm = TRUE))```
+1. F9 has the worst delays ```flights %>% group_by(carrier) %>% summarise(avgDelay = mean(dep_delay, na.rm = TRUE)) %>% arrange(desc(avgDelay))```
+1. Sorts is count results in desc order.
+
 ### 5.7.1
+
+1. Not sure what section.
+1. ```flights %>% group_by(tailnum) %>% summarise(overTime = mean(arr_delay, na.rm = TRUE), flights = n()) %>% arrange(flights, desc(overTime))```
+1. It is better to fly in the morning so there is no delay. ```flights %>% group_by(hour) %>% summarise(delay = sum(arr_delay > 1, na.rm = TRUE) / n()) %>% arrange(., delay)```
+1. Answers:
+    1. ```flights %>% group_by(dest) %>% summarise(totalDelay = sum(arr_delay, na.rm = T)) %>% arrange(desc(totalDelay))```
+    1. ```flights %>% group_by(dest) %>% filter(!is.na(arr_delay), arr_delay > 0) %>% mutate(destDelay = sum(arr_delay), propDelay = arr_delay / destDelay) %>% arrange(desc(propDelay))```
+1. todo
+1. todo
+1. ```flights %>% group_by(dest) %>% filter(n_distinct(carrier) > 2) %>% group_by(carrier) %>% summarise(n = n_distinct(dest)) %>% arrange(desc(n))```
+1. ```flights %>% group_by(tailnum) %>% mutate(row = row_number()) %>% filter(arr_delay >= 60) %>% summarize(hourDelay = first(row) - 1)```
+
+## Chapter 6: Workflow: scripts
+
+### 6.3
+
+1. I checked out the twitter.
+1. You enable several different types of repoting/warnings for R code. It also will show output for other languages like JavaScript. 
+
+## Chapter 7: Exploratory Data Analysis
+
+### 7.3.4
+
+1. The x and the y most likely represnet the length and width of the top of the diamond, while  the z represnets the depth.
+1. There are more diamonds at lower prices and less at higher prices. Also, there are a very low quantity be sold around $1500.
+1. There are many more diamonds at 1 carat than .99. This is probably due to demand of 1 carat, and people like whole numbers.
+1. xlim removes the dataset. coord_cartesian still uses the data. If binwidth is not set you it will split the data into 30 bins.
+
+### 7.4.1
+
+1. Histograms will omit the values. Bar charts will plot them as their own category.
+1. It removes the missing vars from the calculation.
+
+### 7.5.1.1
+
+1. ```flights %>% mutate(cancelled = is.na(dep_time), sched_hour = sched_dep_time %/% 100, sched_min = sched_dep_time %% 100, sched_dep_time = sched_hour + sched_min / 60 ) %>% ggplot(aes(x = cancelled, y = sched_dep_time)) + geom_boxplot()```
+1. Carat is the most important predictor for price. The lower quality diamond will be a larger carat leading to a higher price.
+1. The order of the variables are flipped.
+1. it looks like the width of the shape drawn repensents the frequency of cut at the price. You can see there are a lot less higher prices diamonds at every cut type.
+1. With violin and greqpoly you have all the info in the same plot. It's harder to determine the count at each for each of those plots though. I like the faceted histogram becuase it is very easy to see the difference across the different cuts.
+1. Answers:
+    1. geom_quasirandom: Uses a van der Corput sequence or Tukey texturing (Tukey and Tukey "Strips displaying empirical distributions: I. textured dot strips") to space the dots to avoid overplotting.
+    1. geom_beeswarm: Uses the beeswarm library to do point-size based offset.
+
+### 7.5.2.1
+
+1. You would take the proportion of color and cut over the total count, then fill the geomtile with that proportion.
+1. The amount of destinations on the y axis make it hard to read.
+1. When there are more categories, it is better to have them on the y axis.
+
+### 7.5.3.1
+
+1. cut_width will give you plots of the same width regardless of how many observations in each bin. cut_number will create bins of different width so they contain the correct number of bins provided.
+1. ```ggplot(data = diamonds, mapping = aes(x = price, y = carat)) + geom_boxplot(mapping = aes(group = cut_number(price, 10))) + coord_flip()```
+1. No, as size/price goes up the other factors of diamond quality proabaly affect the price more that at smaller sizes.
+1. ```ggplot(diamonds, aes(x = cut, y = price, color = cut_number(carat, 10))) + geom_boxplot()```
+1. So you can see the outliers easier.
