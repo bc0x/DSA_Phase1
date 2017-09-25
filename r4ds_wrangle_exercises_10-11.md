@@ -4,13 +4,15 @@ Brandon Cox
 9/25/2017
 
 -   [Wrangle: Tibbles](#wrangle-tibbles)
-    -   [10.5](#section)
--   [Including Plots](#including-plots)
+    -   [10.5 Exercises](#exercises)
+-   [Wrangle: Data Import](#wrangle-data-import)
+    -   [11.2.2 Exercises](#exercises-1)
+    -   [11.3.5 Exercises](#exercises-2)
 
 Wrangle: Tibbles
 ----------------
 
-#### 10.5
+#### 10.5 Exercises
 
 1.  test1
 2.  test1
@@ -18,6 +20,27 @@ Wrangle: Tibbles
 4.  test1
 5.  test1
 6.  test1
+
+Wrangle: Data Import
+--------------------
+
+#### 11.2.2 Exercises
+
+1.  1
+2.  1
+3.  3
+4.  4
+5.  5
+
+#### 11.3.5 Exercises
+
+1.  1
+2.  1
+3.  1
+4.  1
+5.  1
+6.  1
+7.  1
 
 ``` r
 summary(cars)
@@ -30,15 +53,6 @@ summary(cars)
     ##  Mean   :15.4   Mean   : 42.98  
     ##  3rd Qu.:19.0   3rd Qu.: 56.00  
     ##  Max.   :25.0   Max.   :120.00
-
-Including Plots
----------------
-
-You can also embed plots, for example:
-
-``` r
-plot(pressure)
-```
 
 ![](r4ds_wrangle_exercises_10-11_files/figure-markdown_github-ascii_identifiers/pressure-1.png)
 
