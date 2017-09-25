@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Wrangle: Tibbles
 
-#### 10.5 Exercises
+### 10.5 Exercises
 
 1. test1
 1. test1
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Wrangle: Data Import
 
-#### 11.2.2 Exercises
+### 11.2.2 Exercises
 
 1. 1
 1. 1
@@ -32,7 +32,7 @@ knitr::opts_chunk$set(echo = TRUE)
 1. 4
 1. 5
 
-#### 11.3.5 Exercises
+### 11.3.5 Exercises
 
 1. 1
 1. 1
