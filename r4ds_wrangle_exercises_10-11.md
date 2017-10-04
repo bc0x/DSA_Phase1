@@ -4,10 +4,10 @@ Brandon Cox
 9/25/2017
 
 -   [Wrangle: Tibbles](#wrangle-tibbles)
-    -   [10.5 Exercises](#exercises)
+    -   [10.5 Exercises](#105-exercises)
 -   [Wrangle: Data Import](#wrangle-data-import)
-    -   [11.2.2 Exercises](#exercises-1)
-    -   [11.3.5 Exercises](#exercises-2)
+    -   [11.2.2 Exercises](#1122-exercises)
+    -   [11.3.5 Exercises](#1135-exercises)
 
 Wrangle: Tibbles
 ----------------
