@@ -1,0 +1,30 @@
+---
+title: "r4ds_wrangle_exercises_12-13"
+author: "Brandon Cox"
+date: "10/02/2017"
+output: 
+  github_document:
+    toc: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("tidyverse")
+```
+
+## Wrangle: Tidy Data
+
+### 12.2.1 Exercises
+### 12.3.3 Exercises
+### 12.4.3 Exercises
+### 12.5.1 Exercises
+### 12.6.1 Exercises
+
+## Wrangle: Relational Data
+
+### 13.2.1 Exercises
+### 12.3.1 Exercises
+### 12.4.6 Exercises
+### 12.5.1 Exercises
+
+
